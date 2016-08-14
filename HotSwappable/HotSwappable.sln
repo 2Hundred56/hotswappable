@@ -1,0 +1,29 @@
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2008
+
+Project("{11C6F77C-FF89-77AB-B7F3-C3A40D9D185D}") = "HotSwappable", "Assembly-CSharp-firstpass.csproj", "{4981B931-7594-E334-C71B-114069CB39DE}"
+EndProject
+Project("{11C6F77C-FF89-77AB-B7F3-C3A40D9D185D}") = "HotSwappable", "Assembly-CSharp.csproj", "{1B61CB7A-85FB-4DF8-1014-4571E649C167}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4981B931-7594-E334-C71B-114069CB39DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4981B931-7594-E334-C71B-114069CB39DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4981B931-7594-E334-C71B-114069CB39DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4981B931-7594-E334-C71B-114069CB39DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B61CB7A-85FB-4DF8-1014-4571E649C167}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B61CB7A-85FB-4DF8-1014-4571E649C167}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B61CB7A-85FB-4DF8-1014-4571E649C167}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B61CB7A-85FB-4DF8-1014-4571E649C167}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Assembly-CSharp.csproj
+	EndGlobalSection
+EndGlobal
