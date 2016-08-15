@@ -10,7 +10,18 @@ public class HotSwappable_Soldier : HotSwappable {
 	
 	// Update is called once per frame
 	void Update () {
-		
+		if (Input.GetKey (KeyCode.W)) {
+			transform.position+=transform.forward/30;
+		}
+		if (Input.GetKey (KeyCode.A)) {
+			transform.position-=transform.right/30;
+		}
+		if (Input.GetKey (KeyCode.S)) {
+			transform.position-=transform.forward/30;
+		}
+		if (Input.GetKey (KeyCode.D)) {
+			transform.position+=transform.right/30;
+		}
 	}
 		
 		
