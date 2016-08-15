@@ -13,7 +13,6 @@ public class HotSwappable_Soldier : HotSwappable {
 	}
 	public override void Control () {
 		base.Control();
-		print ("AAAA!!!");
 		if (Input.GetKey (KeyCode.W)) {
 			transform.position += transform.forward / 30;
 		}
