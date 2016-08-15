@@ -45,8 +45,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\HotSwappable.cs" />
-     <Compile Include="Assets\HotSwappable_Soldier.cs" />
+     <Compile Include="Assets\Scripts\HotSwappable.cs" />
+     <Compile Include="Assets\Scripts\PlrVars.cs" />
+     <Compile Include="Assets\Scripts\Swappable_Controller.cs" />
+     <Compile Include="Assets\Scripts\Swappables\HotSwappable_Soldier.cs" />
      <None Include="Assets\Standard Assets\Effects\GlassRefraction\Shaders\GlassStainedBumpDistort.shader" />
      <None Include="Assets\Standard Assets\Effects\ToonShading\Shaders\ToonBasic.shader" />
      <None Include="Assets\Standard Assets\Effects\TessellationShaders\Shaders\BumpedSpecularSmooth.shader" />

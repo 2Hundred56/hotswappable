@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class HotSwappable : MonoBehaviour {
-	protected bool Controlled = false;
+	public bool Controlled = false;
 	// Use this for initialization
 
 	void Start () {
@@ -11,12 +11,11 @@ public class HotSwappable : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Controlled) {
-			Control (); 
-		}
+
 	}
 
 	public virtual void Control () {
 		
 	}
 }
+
