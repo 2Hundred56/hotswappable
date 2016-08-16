@@ -47,6 +47,7 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\HotSwappable.cs" />
      <Compile Include="Assets\Scripts\HotSwappable_Launchable.cs" />
+     <Compile Include="Assets\Scripts\HotSwappable_Player.cs" />
      <Compile Include="Assets\Scripts\PlrVars.cs" />
      <Compile Include="Assets\Scripts\Swappable_Controller.cs" />
      <Compile Include="Assets\Scripts\Swappables\HotSwappable_GlassCube.cs" />

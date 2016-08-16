@@ -5,7 +5,7 @@ public class HotSwappable_Soldier : HotSwappable {
 
 	// Use this for initialization
 	void Start () {
-		base.Controlled = true;
+		base.Controlled = false;
 	}
 	
 	// Update is called once per frame
