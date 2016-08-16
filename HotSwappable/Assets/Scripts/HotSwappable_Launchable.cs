@@ -10,10 +10,13 @@ public class HotSwappable_Launchable : HotSwappable {
 	
 	// Update is called once per frame
 	void Update () {
-		if (base.Controlled) {
-			if (Input.GetKeyDown (KeyCode.Space)) {
-				GetComponent<Rigidbody> ().velocity += transform.forward * 4;
-			}
+		
+	}
+	public override void Control ()
+	{
+		base.Control ();
+		if (Input.GetKeyDown (KeyCode.Space)) {
+			GetComponent<Rigidbody> ().velocity += transform.up * 12;
 		}
 	}
 }
