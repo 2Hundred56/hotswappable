@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class HotSwappable_GlassCube : MonoBehaviour {
+public class HotSwappable_GlassCube : HotSwappable {
 
 	// Use this for initialization
 	void Start () {
