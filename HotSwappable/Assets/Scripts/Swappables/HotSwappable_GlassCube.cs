@@ -10,8 +10,11 @@ public class HotSwappable_GlassCube : HotSwappable_Launchable {
 	
 	// Update is called once per frame
 	void Update () {
+	}
+	public override void Control () {
+		base.Control ();
 		if (Input.GetKeyDown (KeyCode.Alpha1)) {
-			GetComponent<Rigidbody>().velocity += new Vector3 (0, 4, 0);
+			GetComponent<Rigidbody> ().velocity += new Vector3 (0, 4, 0);
 			print ("Fly, little cube, fly!!");
 		}
 	}
