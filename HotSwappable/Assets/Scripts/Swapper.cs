@@ -11,7 +11,7 @@ public class Swapper : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (Input.GetKeyDown (KeyCode.LeftShift)) {
-			
+
 			object[] obj = GameObject.FindSceneObjectsOfType(typeof (GameObject));
 			GameObject closest = null;
 			foreach (object o in obj)
@@ -26,7 +26,7 @@ public class Swapper : MonoBehaviour {
 					continue;
 				}
 				if ((Vector3.Distance (transform.position, g.transform.position) < Vector3.Distance (transform.position, closest.transform.position) && g != this.gameObject)) {
-					
+
 					if (g.GetComponent<HotSwappable> () != null) {
 						print (g.name);
 						closest = g;
@@ -40,15 +40,23 @@ public class Swapper : MonoBehaviour {
 			closest.AddComponent<FreeLookCam> ();
 			closest.AddComponent<Swapper> ();
 			closest.AddComponent<Swappable_Controller> ();
-			closest.GetComponent<HotSwappable> ().Controlled = true;
+
+			HotSwappable[] enable = closest.GetComponents<HotSwappable> ();
+
+			foreach (HotSwappable swappable in enable) {
+				swappable.Controlled = true;
+			}
 			Destroy (GetComponent<FreeLookCam> ());
 			Destroy (GetComponent<Swapper> ());
 			Destroy (GetComponent<Swappable_Controller> ());
-			GetComponent<HotSwappable> ().Controlled = false;
+			HotSwappable[] disable = GetComponents<HotSwappable> ();
+			foreach (HotSwappable swappable in enable) {
+				swappable.Controlled = false;
+			}
 
 
 
 		}
-	
+
 	}
 }
