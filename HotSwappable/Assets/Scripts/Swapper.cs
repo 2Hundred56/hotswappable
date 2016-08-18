@@ -55,7 +55,7 @@ public class Swapper : MonoBehaviour {
 			RaycastHit hit;
 			if (Physics.Raycast (ray, out hit, 100)) {
 				GameObject closest = hit.collider.gameObject;
-				if (Vector3.Distance (transform.position, closest.transform.position) < SwapRange) {
+				if (Vector3.Distance (transform.position, closest.transform.position) < SwapRange && hit.collider.gameObject.GetComponent<HotSwappable> () != null) {
 					Camera.main.transform.parent = closest.transform;
 					Camera.main.transform.localRotation = Quaternion.Euler (new Vector3 (35.2904f, 0, 0));
 					Camera.main.transform.localPosition = new Vector3 (0, 9.8f, -(closest.GetComponent<Collider> ().bounds.size.magnitude + 8.63f)) / 2f;
