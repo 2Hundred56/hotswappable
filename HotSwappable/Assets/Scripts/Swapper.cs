@@ -9,6 +9,23 @@ public class Swapper : MonoBehaviour {
 
 	}
 
+	void Swap(GameObject closest) {
+		Camera.main.transform.parent = closest.transform;
+		Camera.main.transform.localRotation = Quaternion.Euler (new Vector3 (35.2904f, 0, 0));
+		Camera.main.transform.localPosition = new Vector3 (0, 9.8f, -(closest.GetComponent<Collider> ().bounds.size.magnitude + 8.63f)) / 2f;
+		closest.AddComponent<FreeLookCam> ();
+		closest.AddComponent<Swapper> ();
+		closest.AddComponent<Swappable_Controller> ();
+		closest.GetComponent<HotSwappable> ().Controlled = true;
+		Destroy (GetComponent<FreeLookCam> ());
+		Destroy (GetComponent<Swapper> ());
+		Destroy (GetComponent<Swappable_Controller> ());
+		GetComponent<HotSwappable> ().Controlled = false;
+		glow.transform.parent = closest.transform;
+		glow.transform.localPosition = new Vector3 (0, 0, 0);
+		closest.GetComponent<Swapper> ().glow = glow;
+	}
+
 	// Update is called once per frame
 	void Update () {
 		if (Input.GetKeyDown (KeyCode.LeftShift)) {
@@ -35,17 +52,7 @@ public class Swapper : MonoBehaviour {
 				}
 			}
 
-			Camera.main.transform.parent = closest.transform;
-			Camera.main.transform.localRotation = Quaternion.Euler(new Vector3 (35.2904f, 0, 0));
-			Camera.main.transform.localPosition = new Vector3 (0, 9.8f, -(closest.GetComponent<Collider>().bounds.size.magnitude+8.63f))/2f;
-			closest.AddComponent<FreeLookCam> ();
-			closest.AddComponent<Swapper> ();
-			closest.AddComponent<Swappable_Controller> ();
-			closest.GetComponent<HotSwappable> ().Controlled = true;
-			Destroy (GetComponent<FreeLookCam> ());
-			Destroy (GetComponent<Swapper> ());
-			Destroy (GetComponent<Swappable_Controller> ());
-			GetComponent<HotSwappable> ().Controlled = false;
+			Swap (closest);
 
 
 
@@ -55,22 +62,9 @@ public class Swapper : MonoBehaviour {
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 			RaycastHit hit;
 			if (Physics.Raycast (ray, out hit, 100)) {
-				GameObject closest = hit.collider.gameObject;
-				if (Vector3.Distance (transform.position, closest.transform.position) < SwapRange && closest.GetComponent<HotSwappable> () != null) {
-					Camera.main.transform.parent = closest.transform;
-					Camera.main.transform.localRotation = Quaternion.Euler (new Vector3 (35.2904f, 0, 0));
-					Camera.main.transform.localPosition = new Vector3 (0, 9.8f, -(closest.GetComponent<Collider> ().bounds.size.magnitude + 8.63f)) / 2f;
-					closest.AddComponent<FreeLookCam> ();
-					closest.AddComponent<Swapper> ();
-					closest.AddComponent<Swappable_Controller> ();
-					closest.GetComponent<HotSwappable> ().Controlled = true;
-					Destroy (GetComponent<FreeLookCam> ());
-					Destroy (GetComponent<Swapper> ());
-					Destroy (GetComponent<Swappable_Controller> ());
-					GetComponent<HotSwappable> ().Controlled = false;
-					glow.transform.parent = closest.transform;
-					glow.transform.localPosition = new Vector3 (0, 0, 0);
-					closest.GetComponent<Swapper> ().glow = glow;
+				GameObject hitobject = hit.collider.gameObject;
+				if (Vector3.Distance (transform.position, hitobject.transform.position) < SwapRange && hitobject.GetComponent<HotSwappable> () != null) {
+					Swap (hitobject);
 				}
 
 			}
