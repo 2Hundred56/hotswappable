@@ -6,21 +6,25 @@ public class Swapper : MonoBehaviour {
 	public GameObject glow;
 	// Use this for initialization
 	void Start () {
+		glow = GameObject.Find ("Glow");
 
 	}
 
 	void Swap(GameObject closest) {
 		Camera.main.transform.parent = closest.transform;
-		Camera.main.transform.localRotation = Quaternion.Euler (new Vector3 (35.2904f, 0, 0));
-		Camera.main.transform.localPosition = new Vector3 (0, 9.8f, -(closest.GetComponent<Collider> ().bounds.size.magnitude + 8.63f)) / 2f;
+		Camera.main.transform.localRotation = closest.GetComponent<HotSwappable>().getIdealCameraRot();
+		Camera.main.transform.localPosition = new Vector3(1.1f, 11.5f, -8.2f);
 		closest.AddComponent<FreeLookCam> ();
+		closest.transform.rotation = new Quaternion();
 		closest.AddComponent<Swapper> ();
-		closest.AddComponent<Swappable_Controller> ();
 		closest.GetComponent<HotSwappable> ().Controlled = true;
 		Destroy (GetComponent<FreeLookCam> ());
 		Destroy (GetComponent<Swapper> ());
-		Destroy (GetComponent<Swappable_Controller> ());
 		GetComponent<HotSwappable> ().Controlled = false;
+		print (GetComponent<HotSwappable> ().Controlled);
+		if (GetComponent<HotSwappable> ().Controlled) {
+			Debug.LogError ("Bad swap!");
+		}
 		glow.transform.parent = closest.transform;
 		glow.transform.localPosition = new Vector3 (0, 0, 0);
 		closest.GetComponent<Swapper> ().glow = glow;
@@ -39,14 +43,12 @@ public class Swapper : MonoBehaviour {
 				if (closest == null) {
 					if (g.GetComponent<HotSwappable> () != null && g != this.gameObject) {
 						closest = g;
-						print (g.name);
 					}
 					continue;
 				}
 				if ((Vector3.Distance (transform.position, g.transform.position) < Vector3.Distance (transform.position, closest.transform.position) && g != this.gameObject)) {
 					
 					if (g.GetComponent<HotSwappable> () != null) {
-						print (g.name);
 						closest = g;
 					}
 				}
@@ -69,6 +71,13 @@ public class Swapper : MonoBehaviour {
 
 			}
 		}
-	
+		float d = Input.GetAxis ("Mouse ScrollWheel");
+		if (d > 0) {
+			Camera.main.transform.localPosition *= 0.94f;
+		} 
+		if (d < 0)
+		{
+			Camera.main.transform.localPosition *= 1.04f;
+		}
 	}
 }

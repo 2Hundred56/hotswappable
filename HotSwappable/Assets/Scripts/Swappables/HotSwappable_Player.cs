@@ -7,9 +7,5 @@ public class HotSwappable_Player : HotSwappable_Soldier {
 	void Start () {
 		base.Controlled=true;
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+
 }

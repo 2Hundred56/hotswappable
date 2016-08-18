@@ -7,10 +7,7 @@ public class HotSwappable_GlassCube : HotSwappable_Launchable {
 	void Start () {
 	
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	}
+
 	public override void Control () {
 		base.Control ();
 		if (Input.GetKeyDown (KeyCode.Alpha1)) {

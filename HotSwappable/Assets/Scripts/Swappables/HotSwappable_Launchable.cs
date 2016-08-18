@@ -10,11 +10,7 @@ public class HotSwappable_Launchable : HotSwappable {
 	void Start () {
 	
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
 	public override void Control ()
 	{
 		base.Control ();

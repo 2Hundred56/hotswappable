@@ -47,10 +47,10 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\HotSwappable.cs" />
      <Compile Include="Assets\Scripts\PlrVars.cs" />
-     <Compile Include="Assets\Scripts\Swappable_Controller.cs" />
      <Compile Include="Assets\Scripts\Swappables\HotSwappable_GlassCube.cs" />
      <Compile Include="Assets\Scripts\Swappables\HotSwappable_Launchable.cs" />
      <Compile Include="Assets\Scripts\Swappables\HotSwappable_Player.cs" />
+     <Compile Include="Assets\Scripts\Swappables\HotSwappable_SodaCan.cs" />
      <Compile Include="Assets\Scripts\Swappables\HotSwappable_Soldier.cs" />
      <Compile Include="Assets\Scripts\Swapper.cs" />
      <None Include="Assets\Standard Assets\Effects\GlassRefraction\Shaders\GlassStainedBumpDistort.shader" />

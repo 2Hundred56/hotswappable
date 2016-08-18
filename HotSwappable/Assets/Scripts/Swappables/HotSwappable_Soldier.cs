@@ -1,16 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class HotSwappable_Soldier : HotSwappable {
+public class HotSwappable_Soldier : HotSwappable_Launchable {
 
 	// Use this for initialization
 	void Start () {
 		base.Controlled = false;
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	}
+
 	public override void Control () {
 		base.Control();
 		if (Input.GetKey (KeyCode.W)) {
