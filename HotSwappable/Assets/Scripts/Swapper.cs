@@ -3,6 +3,7 @@ using System.Collections;
 using UnityStandardAssets.Cameras;
 public class Swapper : MonoBehaviour {
 	float SwapRange = 1000;
+	public GameObject glow;
 	// Use this for initialization
 	void Start () {
 
@@ -67,6 +68,9 @@ public class Swapper : MonoBehaviour {
 					Destroy (GetComponent<Swapper> ());
 					Destroy (GetComponent<Swappable_Controller> ());
 					GetComponent<HotSwappable> ().Controlled = false;
+					glow.transform.parent = closest.transform;
+					glow.transform.localPosition = new Vector3 (0, 0, 0);
+					closest.GetComponent<Swapper> ().glow = glow;
 				}
 
 			}
