@@ -46,7 +46,6 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\HotSwappable.cs" />
-     <Compile Include="Assets\Scripts\MouseOrbitImproved.cs" />
      <Compile Include="Assets\Scripts\PlrVars.cs" />
      <Compile Include="Assets\Scripts\Swappables\HotSwappable_GlassCube.cs" />
      <Compile Include="Assets\Scripts\Swappables\HotSwappable_Launchable.cs" />
