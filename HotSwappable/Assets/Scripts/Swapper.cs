@@ -2,10 +2,26 @@
 using System.Collections;
 using UnityStandardAssets.Cameras;
 public class Swapper : MonoBehaviour {
-
+	float SwapRange = 1000;
+	public GameObject glow;
 	// Use this for initialization
 	void Start () {
+		transform.rotation = new Quaternion();
+		GetComponent<HotSwappable> ().StartControl ();
+		glow = GameObject.Find ("Glow");
+		glow.transform.parent = transform;
+		glow.transform.localPosition = new Vector3 (0, 1, 0);
+		Debug.Log ("Swapped in to " + this.name);
 
+	}
+
+	void Swap(GameObject closest) {
+		Camera.main.transform.parent = closest.transform;
+		Camera.main.transform.localRotation = Quaternion.Euler (new Vector3 (35.2904f, 0, 0));
+		Camera.main.transform.localPosition = new Vector3(1.1f, 11.5f, -8.2f);
+		closest.AddComponent<FreeLookCam> ();
+		closest.AddComponent<Swapper> ();
+		Destroy (GetComponent<Swapper> ());
 	}
 
 	// Update is called once per frame
@@ -21,34 +37,46 @@ public class Swapper : MonoBehaviour {
 				if (closest == null) {
 					if (g.GetComponent<HotSwappable> () != null && g != this.gameObject) {
 						closest = g;
-						print (g.name);
 					}
 					continue;
 				}
 				if ((Vector3.Distance (transform.position, g.transform.position) < Vector3.Distance (transform.position, closest.transform.position) && g != this.gameObject)) {
 					
 					if (g.GetComponent<HotSwappable> () != null) {
-						print (g.name);
 						closest = g;
 					}
 				}
 			}
 
-			Camera.main.transform.parent = closest.transform;
-			Camera.main.transform.localRotation = Quaternion.Euler(new Vector3 (35.2904f, 0, 0));
-			Camera.main.transform.localPosition = new Vector3 (0, 9.8f, -(closest.GetComponent<Collider>().bounds.size.magnitude+8.63f));
-			closest.AddComponent<FreeLookCam> ();
-			closest.AddComponent<Swapper> ();
-			closest.AddComponent<Swappable_Controller> ();
-			closest.GetComponent<HotSwappable> ().Controlled = true;
-			Destroy (GetComponent<FreeLookCam> ());
-			Destroy (GetComponent<Swapper> ());
-			Destroy (GetComponent<Swappable_Controller> ());
-			GetComponent<HotSwappable> ().Controlled = false;
+			Swap (closest);
 
 
 
 		}
-	
+		if (Input.GetMouseButtonDown (0)) {
+			Plane p = new Plane (Camera.main.transform.forward , transform.position);
+			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+			RaycastHit hit;
+			if (Physics.Raycast (ray, out hit, 100)) {
+				GameObject hitobject = hit.collider.gameObject;
+				if (Vector3.Distance (transform.position, hitobject.transform.position) < SwapRange && hitobject.GetComponent<HotSwappable> () != null) {
+					Swap (hitobject);
+				}
+
+			}
+		}
+		float d = Input.GetAxis ("Mouse ScrollWheel");
+		if (d > 0) {
+			Camera.main.transform.localPosition *= 0.975f;
+		} 
+		if (d < 0)
+		{
+			Camera.main.transform.localPosition *= 1.025f;
+		}
+	}
+	void OnDestroy() {
+		Debug.Log ("Swapped out from " + this.name);
+		GetComponent<HotSwappable> ().EndControl ();
+		Destroy (GetComponent<FreeLookCam> ());
 	}
 }
