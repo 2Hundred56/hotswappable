@@ -19,7 +19,6 @@ public class Swapper : MonoBehaviour {
 		Camera.main.transform.parent = closest.transform;
 		Camera.main.transform.localRotation = Quaternion.Euler (new Vector3 (35.2904f, 0, 0));
 		Camera.main.transform.localPosition = new Vector3(0, 11.5f, -8.2f);
-		closest.AddComponent<FreeLookCam> ();
 		closest.AddComponent<Swapper> ();
 		Destroy (GetComponent<Swapper> ());
 	}
@@ -65,8 +64,7 @@ public class Swapper : MonoBehaviour {
 
 			}
 		}
-		/*
-		 * 
+		 
 		float d = Input.GetAxis ("Mouse ScrollWheel");
 		if (d > 0) {
 			Camera.main.transform.localPosition *= 0.975f;
@@ -75,11 +73,10 @@ public class Swapper : MonoBehaviour {
 		{
 			Camera.main.transform.localPosition *= 1.025f;
 		}
-		*/
+
 	}
 	void OnDestroy() {
 		Debug.Log ("Swapped out from " + this.name);
 		GetComponent<HotSwappable> ().EndControl ();
-		Destroy (GetComponent<FreeLookCam> ());
 	}
 }
