@@ -6,28 +6,22 @@ public class Swapper : MonoBehaviour {
 	public GameObject glow;
 	// Use this for initialization
 	void Start () {
+		transform.rotation = new Quaternion();
+		GetComponent<HotSwappable> ().StartControl ();
 		glow = GameObject.Find ("Glow");
+		glow.transform.parent = transform;
+		glow.transform.localPosition = new Vector3 (0, 1, 0);
+		Debug.Log ("Swapped in to " + this.name);
 
 	}
 
 	void Swap(GameObject closest) {
 		Camera.main.transform.parent = closest.transform;
-		Camera.main.transform.localRotation = closest.GetComponent<HotSwappable>().getIdealCameraRot();
+		Camera.main.transform.localRotation = Quaternion.Euler (new Vector3 (35.2904f, 0, 0));
 		Camera.main.transform.localPosition = new Vector3(1.1f, 11.5f, -8.2f);
 		closest.AddComponent<FreeLookCam> ();
-		closest.transform.rotation = new Quaternion();
 		closest.AddComponent<Swapper> ();
-		closest.GetComponent<HotSwappable> ().Controlled = true;
-		Destroy (GetComponent<FreeLookCam> ());
 		Destroy (GetComponent<Swapper> ());
-		GetComponent<HotSwappable> ().Controlled = false;
-		print (GetComponent<HotSwappable> ().Controlled);
-		if (GetComponent<HotSwappable> ().Controlled) {
-			Debug.LogError ("Bad swap!");
-		}
-		glow.transform.parent = closest.transform;
-		glow.transform.localPosition = new Vector3 (0, 0, 0);
-		closest.GetComponent<Swapper> ().glow = glow;
 	}
 
 	// Update is called once per frame
@@ -73,11 +67,16 @@ public class Swapper : MonoBehaviour {
 		}
 		float d = Input.GetAxis ("Mouse ScrollWheel");
 		if (d > 0) {
-			Camera.main.transform.localPosition *= 0.94f;
+			Camera.main.transform.localPosition *= 0.975f;
 		} 
 		if (d < 0)
 		{
-			Camera.main.transform.localPosition *= 1.04f;
+			Camera.main.transform.localPosition *= 1.025f;
 		}
+	}
+	void OnDestroy() {
+		Debug.Log ("Swapped out from " + this.name);
+		GetComponent<HotSwappable> ().EndControl ();
+		Destroy (GetComponent<FreeLookCam> ());
 	}
 }

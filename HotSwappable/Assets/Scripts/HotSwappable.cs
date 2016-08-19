@@ -19,11 +19,13 @@ public class HotSwappable : MonoBehaviour {
 	public virtual void Control () {
 		
 	}
-	public virtual Vector3 getIdealCameraPos() {
-		return new Vector3 (0, 9.8f, -(GetComponent<Collider> ().bounds.size.magnitude + 8.63f)) / 2f;
+	public void StartControl() {
+		Controlled = true;
+		Debug.Log (name + " gained control");
 	}
-	public virtual Quaternion getIdealCameraRot() {
-		return Quaternion.Euler (new Vector3 (35.2904f, 0, 0));
+	public void EndControl() {
+		Controlled = false;
+		Debug.Log (name + " lost control");
 	}
 }
 
