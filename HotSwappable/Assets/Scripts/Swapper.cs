@@ -21,6 +21,7 @@ public class Swapper : MonoBehaviour {
 		Camera.main.transform.localPosition = new Vector3(0, 11.5f, -8.2f);
 		closest.AddComponent<Swapper> ();
 		Destroy (GetComponent<Swapper> ());
+		Camera.main.GetComponent<CamCtrl> ().target = closest;
 	}
 
 	// Update is called once per frame
