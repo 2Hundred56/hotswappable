@@ -23,7 +23,16 @@ public class HotSwappable_Soldier : HotSwappable_Launchable {
 			transform.position += transform.right / 30;
 		}
 	}
-		
+
+	public override void StartControl() {
+		base.StartControl ();
+		GetComponent<Rigidbody> ().constraints |= RigidbodyConstraints.FreezeRotationX;
+		GetComponent<Rigidbody> ().constraints |= RigidbodyConstraints.FreezeRotationZ;
+	}
+	public override void EndControl() {
+		base.EndControl ();
+		GetComponent<Rigidbody> ().constraints = RigidbodyConstraints.None;
+	}
 		
 		
 }

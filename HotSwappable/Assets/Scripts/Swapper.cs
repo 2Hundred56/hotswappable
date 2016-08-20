@@ -22,6 +22,7 @@ public class Swapper : MonoBehaviour {
 		closest.AddComponent<Swapper> ();
 		Camera.main.GetComponent<CamCtrl> ().target = closest;
 		Destroy (GetComponent<Swapper> ());
+		Camera.main.GetComponent<CamCtrl> ().target = closest;
 	}
 
 	// Update is called once per frame
