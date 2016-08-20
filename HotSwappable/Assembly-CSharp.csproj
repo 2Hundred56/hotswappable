@@ -49,6 +49,7 @@
      <Compile Include="Assets\Scripts\HotSwappable.cs" />
      <Compile Include="Assets\Scripts\PlrVars.cs" />
      <Compile Include="Assets\Scripts\Swappables\HotSwappable_GlassCube.cs" />
+     <Compile Include="Assets\Scripts\Swappables\HotSwappable_Lantern.cs" />
      <Compile Include="Assets\Scripts\Swappables\HotSwappable_Launchable.cs" />
      <Compile Include="Assets\Scripts\Swappables\HotSwappable_Player.cs" />
      <Compile Include="Assets\Scripts\Swappables\HotSwappable_SodaCan.cs" />

@@ -17,7 +17,9 @@ public class HotSwappable : MonoBehaviour {
 	}
 
 	public virtual void Control () {
-		
+		if (Input.GetKeyDown (KeyCode.RightShift)) {
+			transform.rotation = new Quaternion ();
+		}
 	}
 	public virtual void StartControl() {
 		Controlled = true;
