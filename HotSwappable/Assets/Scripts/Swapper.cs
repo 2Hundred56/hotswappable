@@ -20,6 +20,7 @@ public class Swapper : MonoBehaviour {
 		Camera.main.transform.localRotation = Quaternion.Euler (new Vector3 (35.2904f, 0, 0));
 		Camera.main.transform.localPosition = new Vector3(0, 11.5f, -8.2f);
 		closest.AddComponent<Swapper> ();
+		Camera.main.GetComponent<CamCtrl> ().target = closest;
 		Destroy (GetComponent<Swapper> ());
 	}
 
