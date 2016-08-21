@@ -54,6 +54,7 @@
      <Compile Include="Assets\Scripts\Swappables\HotSwappable_Player.cs" />
      <Compile Include="Assets\Scripts\Swappables\HotSwappable_SodaCan.cs" />
      <Compile Include="Assets\Scripts\Swappables\HotSwappable_Soldier.cs" />
+     <Compile Include="Assets\Scripts\Swappables\HotSwappable_Stool.cs" />
      <Compile Include="Assets\Scripts\Swapper.cs" />
      <None Include="Assets\Standard Assets\Effects\GlassRefraction\Shaders\GlassStainedBumpDistort.shader" />
      <None Include="Assets\Standard Assets\Effects\ToonShading\Shaders\ToonBasic.shader" />
