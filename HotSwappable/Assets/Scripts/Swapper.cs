@@ -28,6 +28,7 @@ public class Swapper : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+		/*
 		if (Input.GetKeyDown (KeyCode.LeftShift)) {
 			
 			object[] obj = GameObject.FindSceneObjectsOfType(typeof (GameObject));
@@ -55,6 +56,7 @@ public class Swapper : MonoBehaviour {
 
 
 		}
+		*/
 		if (Input.GetMouseButtonDown (0)) {
 			Plane p = new Plane (Camera.main.transform.forward, transform.position);
 			Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
@@ -70,11 +72,11 @@ public class Swapper : MonoBehaviour {
 		 
 		float d = Input.GetAxis ("Mouse ScrollWheel");
 		if (d > 0) {
-			Camera.main.transform.localPosition *= 0.95f;
+			Camera.main.transform.localPosition *= 0.9f;
 		} 
 		if (d < 0)
 		{
-			Camera.main.transform.localPosition *= 1.05f;
+			Camera.main.transform.localPosition *= 1.1f;
 		}
 
 	}

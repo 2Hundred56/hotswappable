@@ -10,9 +10,13 @@ public class CamCtrl : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		if (Input.GetKey (KeyCode.LeftShift)) {
+			return;
+		}
 		float x = Input.GetAxis ("Mouse X") * 2f;
 		target.transform.RotateAround (target.transform.position, new Vector3 (0, 1, 0), x);
 		float y = Input.GetAxis ("Mouse Y") * 2f;
 		transform.RotateAround (target.transform.position, new Vector3 (0, 0, 0), y);
+	
 	}
 }
