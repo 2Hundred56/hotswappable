@@ -16,9 +16,9 @@ public class Swapper : MonoBehaviour {
 	}
 
 	void Swap(GameObject closest) {
-		Camera.main.transform.parent = closest.transform;
-		Camera.main.transform.localRotation = Quaternion.Euler (new Vector3 (35.2904f, 0, 0));
-		Camera.main.transform.localPosition = new Vector3(0, 11.5f, -8.2f)/(closest.GetComponent<Collider> ().bounds.size.magnitude*0.5f);
+		//Camera.main.transform.parent = closest.transform;
+		//Camera.main.transform.localRotation = Quaternion.Euler (new Vector3 (35.2904f, 0, 0));
+		//Camera.main.transform.localPosition = new Vector3(0, 11.5f, -8.2f)/(closest.GetComponent<Collider> ().bounds.size.magnitude*0.5f);
 		closest.AddComponent<Swapper> ();
 		Camera.main.GetComponent<CamCtrl> ().target = closest;
 		Destroy (GetComponent<Swapper> ());
@@ -72,11 +72,11 @@ public class Swapper : MonoBehaviour {
 		 
 		float d = Input.GetAxis ("Mouse ScrollWheel");
 		if (d > 0) {
-			Camera.main.transform.localPosition *= 0.9f;
+			Camera.main.GetComponent<CamCtrl>().zoom *= 0.9f;
 		} 
 		if (d < 0)
 		{
-			Camera.main.transform.localPosition *= 1.1f;
+			Camera.main.GetComponent<CamCtrl>().zoom *= 1.1f;
 		}
 
 	}
