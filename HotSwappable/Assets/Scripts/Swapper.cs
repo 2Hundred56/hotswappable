@@ -84,4 +84,5 @@ public class Swapper : MonoBehaviour {
 		Debug.Log ("Swapped out from " + this.name);
 		GetComponent<HotSwappable> ().EndControl ();
 	}
+
 }
