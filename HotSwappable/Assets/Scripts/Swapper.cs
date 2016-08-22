@@ -6,7 +6,7 @@ public class Swapper : MonoBehaviour {
 	public GameObject glow;
 	// Use this for initialization
 	void Start () {
-		transform.rotation = new Quaternion();
+		//transform.rotation = new Quaternion();
 		GetComponent<HotSwappable> ().StartControl ();
 		glow = GameObject.Find ("Glow");
 		glow.transform.parent = transform;
