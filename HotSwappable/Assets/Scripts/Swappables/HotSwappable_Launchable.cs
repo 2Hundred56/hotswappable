@@ -15,7 +15,7 @@ public class HotSwappable_Launchable : HotSwappable {
 	{
 		base.Control ();
 		if (Input.GetKeyDown (KeyCode.Space) && throw_state==0) {
-			GetComponent<Rigidbody> ().velocity += transform.forward * 5 + transform.up*5;
+			GetComponent<Rigidbody> ().velocity += transform.up*7;
 			throw_state = throw_cooldown;
 		}
 		if (throw_state > 0) {
