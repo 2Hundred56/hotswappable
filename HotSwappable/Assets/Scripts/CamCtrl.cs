@@ -3,11 +3,9 @@ using System.Collections;
 
 public class CamCtrl : MonoBehaviour {
 	public GameObject Target;
-	public float ZoomValue = 1;
+	public float ZoomValue = 0.9f;
 	public float PosLerp = 0.1f;
-	public float XPan = 0;
-	public float YPan = 0;
-	public float ZPan = 0;
+	public Vector3 Pan = new Vector3(0,0,0);
 	public float LastMouseX = 0;
 	public float LastMouseY = 0;
 	public Quaternion LastRot = new Quaternion();
@@ -22,7 +20,7 @@ public class CamCtrl : MonoBehaviour {
 		Target = NewTarget;
 		LastPos = Target.transform.position;
 		LastRot = Target.transform.rotation;
-		GoalPos = LastPos + new Vector3 (0, ZoomValue * 3, -ZoomValue * 3);
+		GoalPos = LastPos + new Vector3(0, ZoomValue * 3, -ZoomValue * 3);
 
 	}
 	
@@ -36,6 +34,11 @@ public class CamCtrl : MonoBehaviour {
 			dy = y - LastMouseY;
 			GoalPos.x -= dx;
 			GoalPos.z -= dy;
+			Pan.x -= dx;
+			Pan.z -= dy;
+		}
+		if (Input.GetKeyDown (KeyCode.Z)) {
+			Debug.Log (ZoomValue);
 		}
 
 	
@@ -46,7 +49,7 @@ public class CamCtrl : MonoBehaviour {
 		Quaternion TargetRot = Target.transform.rotation;
 		GoalPos += (TargetPos - LastPos);
 		float YChange = TargetRot.eulerAngles.y - LastRot.eulerAngles.y;
-		GoalPos = RotatePointAroundPivot (GoalPos, TargetPos, new Vector3 (0, YChange, 0));
+		GoalPos = RotatePointAroundPivot (GoalPos-Pan, TargetPos, new Vector3 (0, YChange, 0))+Pan;
 		transform.rotation=Quaternion.Euler(new Vector3(transform.rotation.eulerAngles.x,
 			transform.rotation.eulerAngles.y+YChange,
 			transform.rotation.eulerAngles.z));
@@ -59,7 +62,7 @@ public class CamCtrl : MonoBehaviour {
 	}
 	public void Zoom(float NewZoom) {
 		ZoomValue = NewZoom;
-		GoalPos = (GoalPos - LastPos) * ZoomValue + LastPos;
+		GoalPos = (GoalPos - Pan - LastPos) * ZoomValue + LastPos + Pan;
 	}
 	Vector3 RotatePointAroundPivot(Vector3 point, Vector3 pivot, Vector3 angles) {
 		Vector3 dir = point - pivot;
