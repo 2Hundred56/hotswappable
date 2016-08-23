@@ -39,6 +39,8 @@ public class CamCtrl : MonoBehaviour {
 			y = Input.GetAxis ("Mouse Y");
 			dx = x - lastMouseX;
 			dy = y - lastMouseY;
+
+
 			xPan -= dx;
 			zPan -= dy;
 		}
