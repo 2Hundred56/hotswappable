@@ -28,7 +28,6 @@ public class Swapper : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		/*
 		if (Input.GetKeyDown (KeyCode.LeftShift)) {
 			
 			object[] obj = GameObject.FindSceneObjectsOfType(typeof (GameObject));
@@ -56,7 +55,6 @@ public class Swapper : MonoBehaviour {
 
 
 		}
-		*/
 		if (Input.GetMouseButtonDown (0)) {
 			Plane p = new Plane (Camera.main.transform.forward, transform.position);
 			Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);

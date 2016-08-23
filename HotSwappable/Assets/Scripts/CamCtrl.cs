@@ -3,32 +3,35 @@ using System.Collections;
 
 public class CamCtrl : MonoBehaviour {
 	public GameObject target;
-	public float zoom = 1;
-	public float lerp = 0.1f;
-	public float xPan = 0;
-	public float yPan = 0;
-	public float zPan = 0;
-	public float lastMouseX = 0;
-	public float lastMouseY = 0;
+	public float Zoom = 1;
+	public float Lerp = 0.1f;
+	public float XPan = 0;
+	public float YPan = 0;
+	public float ZPan = 0;
+	public float LastMouseX = 0;
+	public float LastMouseY = 0;
+	public Quaternion LastRot = new Quaternion();
+	public Vector3 LastPos = new Vector3();
+	public Vector3 GoalPos = new Vector3();
 	// Use this for initialization
 	void Start () {
-		lastMouseX = Input.GetAxis ("Mouse X");
-		lastMouseY = Input.GetAxis ("Mouse Y");
+		LastMouseX = Input.GetAxis ("Mouse X");
+		LastMouseY = Input.GetAxis ("Mouse Y");
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		if (Input.GetKey (KeyCode.LeftArrow)) {
-			xPan -= 0.1f;
+			XPan -= 0.1f;
 		}
 		if (Input.GetKey (KeyCode.RightArrow)) {
-			xPan += 0.1f;
+			XPan += 0.1f;
 		}
 		if (Input.GetKey (KeyCode.UpArrow)) {
-			zPan += 0.1f;
+			ZPan += 0.1f;
 		}
 		if (Input.GetKey (KeyCode.DownArrow)) {
-			zPan -= 0.1f;
+			ZPan -= 0.1f;
 		}
 		if (Input.GetKey (KeyCode.LeftShift)) {
 			return;
@@ -37,19 +40,24 @@ public class CamCtrl : MonoBehaviour {
 			float x, y, dx, dy;
 			x = Input.GetAxis ("Mouse X");
 			y = Input.GetAxis ("Mouse Y");
-			dx = x - lastMouseX;
-			dy = y - lastMouseY;
-			xPan -= dx;
-			zPan -= dy;
+			dx = x - LastMouseX;
+			dy = y - LastMouseY;
+			XPan -= dx;
+			ZPan -= dy;
 		}
 
 	
 	}
 
 	void LateUpdate () {
-		Vector3 goal = target.transform.position + new Vector3 (0+xPan, zoom * 3 + yPan, -zoom * 3 + zPan);
-		transform.position += lerp * (goal - transform.position);
-		lastMouseX = Input.GetAxis ("Mouse X");
-		lastMouseY = Input.GetAxis ("Mouse Y");
+		Vector3 TargetPos = target.transform.position;
+		Quaternion TargetRot = target.transform.rotation;
+		GoalPos += (target.transform.position - LastPos);
+		float YChange = target.transform.rotation.eulerAngles.y - LastRot.eulerAngles.y;
+		transform.position += Lerp * (GoalPos - transform.position);
+		LastMouseX = Input.GetAxis ("Mouse X");
+		LastMouseY = Input.GetAxis ("Mouse Y");
+		LastPos = TargetPos;
+		LastRot = TargetRot;
 	}
 }
