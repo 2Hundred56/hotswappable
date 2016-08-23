@@ -4,7 +4,7 @@ using System.Collections;
 public class CamCtrl : MonoBehaviour {
 	public GameObject Target;
 	public float ZoomValue = 1;
-	public float Lerp = 0.1f;
+	public float PosLerp = 0.1f;
 	public float XPan = 0;
 	public float YPan = 0;
 	public float ZPan = 0;
@@ -20,26 +20,14 @@ public class CamCtrl : MonoBehaviour {
 	}
 	public void ChangeTarget(GameObject NewTarget) {
 		Target = NewTarget;
-		GoalPos = new Vector3 (0, ZoomValue * 3, -ZoomValue * 3);
+		LastPos = Target.transform.position;
+		LastRot = Target.transform.rotation;
+		GoalPos = LastPos + new Vector3 (0, ZoomValue * 3, -ZoomValue * 3);
+
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetKey (KeyCode.LeftArrow)) {
-			XPan -= 0.1f;
-		}
-		if (Input.GetKey (KeyCode.RightArrow)) {
-			XPan += 0.1f;
-		}
-		if (Input.GetKey (KeyCode.UpArrow)) {
-			ZPan += 0.1f;
-		}
-		if (Input.GetKey (KeyCode.DownArrow)) {
-			ZPan -= 0.1f;
-		}
-		if (Input.GetKey (KeyCode.LeftShift)) {
-			return;
-		}
 		if (Input.GetMouseButton (1)) {
 			float x, y, dx, dy;
 			x = Input.GetAxis ("Mouse X");
@@ -55,16 +43,29 @@ public class CamCtrl : MonoBehaviour {
 
 	void LateUpdate () {
 		Vector3 TargetPos = Target.transform.position;
+		Quaternion TargetRot = Target.transform.rotation;
 		GoalPos += (TargetPos - LastPos);
-
-		transform.position += Lerp * (GoalPos - transform.position);
+		float YChange = TargetRot.eulerAngles.y - LastRot.eulerAngles.y;
+		GoalPos = RotatePointAroundPivot (GoalPos, TargetPos, new Vector3 (0, YChange, 0));
+		transform.rotation=Quaternion.Euler(new Vector3(transform.rotation.eulerAngles.x,
+			transform.rotation.eulerAngles.y+YChange,
+			transform.rotation.eulerAngles.z));
+				
+		transform.position += PosLerp * (GoalPos - transform.position);
 		LastMouseX = Input.GetAxis ("Mouse X");
 		LastMouseY = Input.GetAxis ("Mouse Y");
 		LastPos = TargetPos;
-		LastRot = Target.transform.rotation;
+		LastRot = TargetRot;
 	}
 	public void Zoom(float NewZoom) {
 		ZoomValue = NewZoom;
 		GoalPos = (GoalPos - LastPos) * ZoomValue + LastPos;
 	}
+	Vector3 RotatePointAroundPivot(Vector3 point, Vector3 pivot, Vector3 angles) {
+		Vector3 dir = point - pivot;
+		dir = Quaternion.Euler(angles) * dir;
+		point = dir + pivot;
+		return point;
+	}
+
 }
