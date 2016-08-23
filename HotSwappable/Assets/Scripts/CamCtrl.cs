@@ -2,8 +2,8 @@
 using System.Collections;
 
 public class CamCtrl : MonoBehaviour {
-	public GameObject target;
-	public float Zoom = 1;
+	public GameObject Target;
+	public float ZoomValue = 1;
 	public float Lerp = 0.1f;
 	public float XPan = 0;
 	public float YPan = 0;
@@ -17,6 +17,10 @@ public class CamCtrl : MonoBehaviour {
 	void Start () {
 		LastMouseX = Input.GetAxis ("Mouse X");
 		LastMouseY = Input.GetAxis ("Mouse Y");
+	}
+	public void ChangeTarget(GameObject NewTarget) {
+		Target = NewTarget;
+		GoalPos = new Vector3 (0, ZoomValue * 3, -ZoomValue * 3);
 	}
 	
 	// Update is called once per frame
@@ -42,22 +46,25 @@ public class CamCtrl : MonoBehaviour {
 			y = Input.GetAxis ("Mouse Y");
 			dx = x - LastMouseX;
 			dy = y - LastMouseY;
-			XPan -= dx;
-			ZPan -= dy;
+			GoalPos.x -= dx;
+			GoalPos.z -= dy;
 		}
 
 	
 	}
 
 	void LateUpdate () {
-		Vector3 TargetPos = target.transform.position;
-		Quaternion TargetRot = target.transform.rotation;
-		GoalPos += (target.transform.position - LastPos);
-		float YChange = target.transform.rotation.eulerAngles.y - LastRot.eulerAngles.y;
+		Vector3 TargetPos = Target.transform.position;
+		GoalPos += (TargetPos - LastPos);
+
 		transform.position += Lerp * (GoalPos - transform.position);
 		LastMouseX = Input.GetAxis ("Mouse X");
 		LastMouseY = Input.GetAxis ("Mouse Y");
 		LastPos = TargetPos;
-		LastRot = TargetRot;
+		LastRot = Target.transform.rotation;
+	}
+	public void Zoom(float NewZoom) {
+		ZoomValue = NewZoom;
+		GoalPos = (GoalPos - LastPos) * ZoomValue + LastPos;
 	}
 }
