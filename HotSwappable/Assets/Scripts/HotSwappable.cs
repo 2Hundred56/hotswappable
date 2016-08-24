@@ -23,6 +23,10 @@ public class HotSwappable : MonoBehaviour {
 	public virtual void Launch() {
 
 	}
+	public virtual void Rotate(float Angle) {
+		transform.Rotate (new Vector3 (0, Angle, 0));
+
+	}
 
 }
 

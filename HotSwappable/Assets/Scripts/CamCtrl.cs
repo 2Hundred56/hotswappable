@@ -52,6 +52,9 @@ public class CamCtrl : MonoBehaviour {
 	}
 
 	void LateUpdate () {
+		if (Input.GetKey(KeyCode.LeftShift)) {
+			return;
+		}
 		Vector3 TargetPos = Target.transform.position;
 		Quaternion TargetRot = Target.transform.rotation;
 		GoalPos += (TargetPos - LastPos);

@@ -24,7 +24,7 @@ public class Swapper : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetKeyDown (KeyCode.LeftShift)) {
+		if (Input.GetKeyDown (KeyCode.Q)) {
 			
 			object[] obj = GameObject.FindSceneObjectsOfType(typeof (GameObject));
 			GameObject closest = null;
@@ -76,10 +76,10 @@ public class Swapper : MonoBehaviour {
 			Camera.main.GetComponent<CamCtrl>().Zoom(1.1f);
 		}
 		if (Input.GetKey (KeyCode.A)) {
-			transform.Rotate (new Vector3 (0, -1, 0));
+			GetComponent<HotSwappable> ().Rotate (-1);
 		}
 		if (Input.GetKey (KeyCode.D)) {
-			transform.Rotate (new Vector3 (0, 1, 0));
+			GetComponent<HotSwappable> ().Rotate (1);
 		}
 		if (Input.GetKey (KeyCode.W)) {
 			
