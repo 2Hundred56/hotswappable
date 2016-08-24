@@ -42,11 +42,10 @@ public class CamCtrl : MonoBehaviour {
 			x = Input.GetAxis ("Mouse X");
 			y = Input.GetAxis ("Mouse Y");
 			dx = x - LastMouseX;
-			dy = y - LastMouseY;
-			GoalPos.x -= dx;
-			GoalPos.z -= dy;
-			Pan.x -= dx;
-			Pan.z -= dy;
+			dy = y - LastMouseY;	
+			GoalRot = Quaternion.Euler(new Vector3(GoalRot.eulerAngles.x,
+				GoalRot.eulerAngles.y+dx*5,
+				GoalRot.eulerAngles.z));
 		}
 	
 	}

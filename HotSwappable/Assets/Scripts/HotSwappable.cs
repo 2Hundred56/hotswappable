@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class HotSwappable : MonoBehaviour {
-	public float speed = 0.1f;
+	public float speed = 0.2f;
 	public Quaternion moveAxis = new Quaternion();
 	// Use this for initialization
 
