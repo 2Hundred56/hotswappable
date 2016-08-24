@@ -13,6 +13,8 @@ public class CamCtrl : MonoBehaviour {
 	public Vector3 GoalPos = new Vector3();
 	public Quaternion GoalRot = new Quaternion();
 	public Quaternion StartRot;
+	public float rotation = 0;
+	public bool skip = false;
 	public bool setup = true;
 	// Use this for initialization
 	void Start () {
@@ -46,6 +48,8 @@ public class CamCtrl : MonoBehaviour {
 			GoalRot = Quaternion.Euler(new Vector3(GoalRot.eulerAngles.x,
 				GoalRot.eulerAngles.y+dx*5,
 				GoalRot.eulerAngles.z));
+			rotation += dx;
+			skip = true;
 		}
 		if (Input.GetMouseButton (0)) {
 			float x, y, dx, dy;
@@ -57,6 +61,7 @@ public class CamCtrl : MonoBehaviour {
 			Pan.z += dy;
 			GoalPos.x += dx;
 			GoalPos.z += dy;
+			skip = true;
 		}
 	
 	}
@@ -65,7 +70,22 @@ public class CamCtrl : MonoBehaviour {
 		transform.rotation=Quaternion.Lerp(transform.rotation, GoalRot, Lerp);
 
 		transform.position += Lerp * (GoalPos - transform.position);
+		if (Input.GetKey (KeyCode.Tab)) {
+			GoalPos.x -= Pan.x;
+			GoalPos.y -= Pan.y;
+			GoalPos.z -= Pan.z;
+			Pan = new Vector3 (0, 0, 0);
+			GoalRot = Quaternion.Euler(new Vector3(GoalRot.eulerAngles.x,
+				GoalRot.eulerAngles.y-rotation,
+				GoalRot.eulerAngles.z));
+			rotation = 0;
+
+		}
 		if (Input.GetKey(KeyCode.LeftShift)) {
+			skip = true;
+		}
+		if (skip) {
+			skip = false;
 			return;
 		}
 		Vector3 TargetPos = Target.transform.position;
