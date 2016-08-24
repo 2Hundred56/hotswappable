@@ -6,30 +6,25 @@ public class Swapper : MonoBehaviour {
 	public GameObject glow;
 	// Use this for initialization
 	void Start () {
-		//transform.rotation = new Quaternion();
+		Camera.main.GetComponent<CamCtrl> ().ChangeTarget (gameObject);
 		GetComponent<HotSwappable> ().StartControl ();
 		glow = GameObject.Find ("Glow");
 		glow.transform.parent = transform;
 		glow.transform.localPosition = new Vector3 (0, 1, 0);
+
 		Debug.Log ("Swapped in to " + this.name);
 
 	}
 
 	void Swap(GameObject closest) {
-		//Camera.main.transform.parent = closest.transform;
-		//Camera.main.transform.localRotation = Quaternion.Euler (new Vector3 (35.2904f, 0, 0));
-		//Camera.main.transform.localPosition = new Vector3(0, 11.5f, -8.2f)/(closest.GetComponent<Collider> ().bounds.size.magnitude*0.5f);
 		closest.AddComponent<Swapper> ();
-		Camera.main.GetComponent<CamCtrl> ().target = closest;
 		Destroy (GetComponent<Swapper> ());
-		Camera.main.GetComponent<CamCtrl> ().target = closest;
-		//Camera.main.transform.localPosition *= closest.GetComponent<Collider> ().bounds.size.magnitude;
+
 	}
 
 	// Update is called once per frame
 	void Update () {
-		/*
-		if (Input.GetKeyDown (KeyCode.LeftShift)) {
+		if (Input.GetKeyDown (KeyCode.Q)) {
 			
 			object[] obj = GameObject.FindSceneObjectsOfType(typeof (GameObject));
 			GameObject closest = null;
@@ -56,7 +51,6 @@ public class Swapper : MonoBehaviour {
 
 
 		}
-		*/
 		if (Input.GetMouseButtonDown (0)) {
 			Plane p = new Plane (Camera.main.transform.forward, transform.position);
 			Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
@@ -69,14 +63,33 @@ public class Swapper : MonoBehaviour {
 
 			}
 		}
-		 
+		if (Input.GetKeyDown (KeyCode.RightShift)) {
+			transform.rotation = Quaternion.Euler (new Vector3 (0, transform.rotation.eulerAngles.y, 0));
+		}
+
 		float d = Input.GetAxis ("Mouse ScrollWheel");
 		if (d > 0) {
-			Camera.main.GetComponent<CamCtrl>().zoom *= 0.9f;
+			Camera.main.GetComponent<CamCtrl>().Zoom(0.9f);
 		} 
 		if (d < 0)
 		{
-			Camera.main.GetComponent<CamCtrl>().zoom *= 1.1f;
+			Camera.main.GetComponent<CamCtrl>().Zoom(1.1f);
+		}
+		if (Input.GetKey (KeyCode.A)) {
+			GetComponent<HotSwappable> ().Rotate (-1);
+		}
+		if (Input.GetKey (KeyCode.D)) {
+			GetComponent<HotSwappable> ().Rotate (1);
+		}
+		if (Input.GetKey (KeyCode.W)) {
+			
+			transform.position += (GetComponent<HotSwappable>().moveAxis * transform.forward) * GetComponent<HotSwappable>().speed / 30f;
+		}
+		if (Input.GetKey (KeyCode.S)) {
+			transform.position -= (GetComponent<HotSwappable>().moveAxis * transform.forward) * GetComponent<HotSwappable>().speed / 30f;
+		}
+		if (Input.GetKey (KeyCode.Space)) {
+			GetComponent<HotSwappable> ().Launch ();
 		}
 
 	}

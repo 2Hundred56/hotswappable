@@ -2,7 +2,8 @@
 using System.Collections;
 
 public class HotSwappable : MonoBehaviour {
-	public bool Controlled = false;
+	public float speed = 0.1f;
+	public Quaternion moveAxis = new Quaternion();
 	// Use this for initialization
 
 	void Start () {
@@ -11,23 +12,20 @@ public class HotSwappable : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Controlled) {
-			Control ();
-		} 
 	}
-
-	public virtual void Control () {
-		if (Input.GetKeyDown (KeyCode.RightShift)) {
-			transform.rotation = new Quaternion ();
-		}
-	}
+		
 	public virtual void StartControl() {
-		Controlled = true;
 		Debug.Log (name + " gained control");
 	}
 	public virtual void EndControl() {
-		Controlled = false;
 		Debug.Log (name + " lost control");
+	}
+	public virtual void Launch() {
+
+	}
+	public virtual void Rotate(float Angle) {
+		transform.Rotate (new Vector3 (0, Angle, 0));
+
 	}
 
 }
