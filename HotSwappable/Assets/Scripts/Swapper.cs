@@ -63,7 +63,10 @@ public class Swapper : MonoBehaviour {
 
 			}
 		}
-		 
+		if (Input.GetKeyDown (KeyCode.RightShift)) {
+			transform.rotation = Quaternion.Euler (new Vector3 (0, transform.rotation.eulerAngles.y, 0));
+		}
+
 		float d = Input.GetAxis ("Mouse ScrollWheel");
 		if (d > 0) {
 			Camera.main.GetComponent<CamCtrl>().Zoom(0.9f);
@@ -71,6 +74,22 @@ public class Swapper : MonoBehaviour {
 		if (d < 0)
 		{
 			Camera.main.GetComponent<CamCtrl>().Zoom(1.1f);
+		}
+		if (Input.GetKey (KeyCode.A)) {
+			transform.Rotate (new Vector3 (0, -1, 0));
+		}
+		if (Input.GetKey (KeyCode.D)) {
+			transform.Rotate (new Vector3 (0, 1, 0));
+		}
+		if (Input.GetKey (KeyCode.W)) {
+			
+			transform.position += (GetComponent<HotSwappable>().moveAxis * transform.forward) * GetComponent<HotSwappable>().speed / 30f;
+		}
+		if (Input.GetKey (KeyCode.S)) {
+			transform.position -= (GetComponent<HotSwappable>().moveAxis * transform.forward) * GetComponent<HotSwappable>().speed / 30f;
+		}
+		if (Input.GetKey (KeyCode.Space)) {
+			GetComponent<HotSwappable> ().Launch ();
 		}
 
 	}

@@ -7,9 +7,4 @@ public class HotSwappable_SodaCan : HotSwappable_Launchable {
 	void Start () {
 	
 	}
-
-	public override void Control ()
-	{
-		base.Control ();
-	}
 }

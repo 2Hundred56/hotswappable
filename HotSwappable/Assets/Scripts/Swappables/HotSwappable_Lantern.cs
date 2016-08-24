@@ -7,9 +7,4 @@ public class HotSwappable_Lantern : HotSwappable_Launchable  {
 	void Start () {
 	
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 }

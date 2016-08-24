@@ -6,20 +6,18 @@ public class HotSwappable_Launchable : HotSwappable {
 	float throw_cooldown = 100f;
 	float throw_state=0;
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-
-	public override void Control ()
-	{
-		base.Control ();
-		if (Input.GetKeyDown (KeyCode.Space) && throw_state==0) {
-			GetComponent<Rigidbody> ().velocity += transform.up * 5 + transform.forward * 5;
-			throw_state = throw_cooldown;
-		}
+	public void Update () {
+		throw_cooldown = GetComponent<Rigidbody> ().mass * 10;
 		if (throw_state > 0) {
 			throw_state--;
 		}
+	}
+
+	public override void Launch() {
+		if (throw_state==0) {
+			GetComponent<Rigidbody> ().velocity += transform.up * 5 + transform.forward * 5;
+			throw_state = throw_cooldown;
+		}
+
 	}
 }
