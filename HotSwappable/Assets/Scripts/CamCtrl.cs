@@ -47,10 +47,24 @@ public class CamCtrl : MonoBehaviour {
 				GoalRot.eulerAngles.y+dx*5,
 				GoalRot.eulerAngles.z));
 		}
+		if (Input.GetMouseButton (0)) {
+			float x, y, dx, dy;
+			x = Input.GetAxis ("Mouse X");
+			y = Input.GetAxis ("Mouse Y");
+			dx = x - LastMouseX;
+			dy = y - LastMouseY;	
+			Pan.x += dx;
+			Pan.z += dy;
+			GoalPos.x += dx;
+			GoalPos.z += dz;
+		}
 	
 	}
 
 	void LateUpdate () {
+		transform.rotation=Quaternion.Lerp(transform.rotation, GoalRot, Lerp);
+
+		transform.position += Lerp * (GoalPos - transform.position);
 		if (Input.GetKey(KeyCode.LeftShift)) {
 			return;
 		}
@@ -62,9 +76,7 @@ public class CamCtrl : MonoBehaviour {
 		GoalRot = Quaternion.Euler(new Vector3(GoalRot.eulerAngles.x,
 			GoalRot.eulerAngles.y+YChange,
 			GoalRot.eulerAngles.z));
-		transform.rotation=Quaternion.Lerp(transform.rotation, GoalRot, Lerp);
-				
-		transform.position += Lerp * (GoalPos - transform.position);
+		
 		LastMouseX = Input.GetAxis ("Mouse X");
 		LastMouseY = Input.GetAxis ("Mouse Y");
 		LastPos = TargetPos;
