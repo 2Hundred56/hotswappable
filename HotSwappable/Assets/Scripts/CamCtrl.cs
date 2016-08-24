@@ -56,7 +56,7 @@ public class CamCtrl : MonoBehaviour {
 			Pan.x += dx;
 			Pan.z += dy;
 			GoalPos.x += dx;
-			GoalPos.z += dz;
+			GoalPos.z += dy;
 		}
 	
 	}
