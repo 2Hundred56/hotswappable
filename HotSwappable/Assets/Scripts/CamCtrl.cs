@@ -13,6 +13,7 @@ public class CamCtrl : MonoBehaviour {
 	public Vector3 GoalPos = new Vector3();
 	public Quaternion GoalRot = new Quaternion();
 	public Quaternion StartRot;
+	public float PanSpeed = 0.1f;
 	public float rotation = 0;
 	public bool skip = false;
 	public bool setup = true;
@@ -57,8 +58,8 @@ public class CamCtrl : MonoBehaviour {
 			y = Input.GetAxis ("Mouse Y");
 			dx = x - LastMouseX;
 			dy = y - LastMouseY;	
-			Pan.x -= dx;
-			Pan.z -= dy;
+			Pan.x -= dx*PanSpeed;
+			Pan.z -= dy*PanSpeed;
 			GoalPos.x -= dx;
 			GoalPos.z -= dy;
 			skip = true;
@@ -70,7 +71,7 @@ public class CamCtrl : MonoBehaviour {
 		transform.rotation=Quaternion.Lerp(transform.rotation, GoalRot, Lerp);
 
 		transform.position += Lerp * (GoalPos - transform.position);
-		if (Input.GetKey (KeyCode.Tab)) {
+		if (Input.GetKeyDown (KeyCode.Tab)) {
 			GoalPos.x -= Pan.x;
 			GoalPos.y -= Pan.y;
 			GoalPos.z -= Pan.z;
@@ -80,6 +81,10 @@ public class CamCtrl : MonoBehaviour {
 				GoalRot.eulerAngles.z));
 			rotation = 0;
 
+		}
+		if (Input.GetKeyDown(KeyCode.Backslash)) {
+			Pan = new Vector3 (0, 0, 0);
+			rotation = 0;
 		}
 		if (Input.GetKey(KeyCode.LeftShift)) {
 			skip = true;
