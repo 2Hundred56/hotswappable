@@ -57,10 +57,10 @@ public class CamCtrl : MonoBehaviour {
 			y = Input.GetAxis ("Mouse Y");
 			dx = x - LastMouseX;
 			dy = y - LastMouseY;	
-			Pan.x += dx;
-			Pan.z += dy;
-			GoalPos.x += dx;
-			GoalPos.z += dy;
+			Pan.x -= dx;
+			Pan.z -= dy;
+			GoalPos.x -= dx;
+			GoalPos.z -= dy;
 			skip = true;
 		}
 	
